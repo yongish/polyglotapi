@@ -4,7 +4,9 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
+import com.zhiyong.PolyglotAPI.db.ArticleDAO;
 import com.zhiyong.PolyglotAPI.db.KnowDAO;
+import com.zhiyong.PolyglotAPI.db.WordDAO;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Environment;
 import org.skife.jdbi.v2.DBI;
@@ -14,6 +16,8 @@ public class PolyglotAPIServiceModule extends AbstractModule {
     private final Environment environment;
     private final DBI jdbi;
     private KnowDAO knowDAO;
+    private ArticleDAO articleDAO;
+    private WordDAO wordDAO;
 
     public PolyglotAPIServiceModule(PolyglotAPIConfiguration configuration, Environment environment) {
         this.configuration = configuration;
@@ -40,5 +44,21 @@ public class PolyglotAPIServiceModule extends AbstractModule {
             knowDAO = jdbi.onDemand(KnowDAO.class);
         }
         return knowDAO;
+    }
+
+    @Provides @Singleton
+    public ArticleDAO getArticleDAO() {
+        if (articleDAO == null) {
+            articleDAO = jdbi.onDemand(ArticleDAO.class);
+        }
+        return articleDAO;
+    }
+
+    @Provides @Singleton
+    public WordDAO getWordDAO() {
+        if (wordDAO == null) {
+            wordDAO = jdbi.onDemand(WordDAO.class);
+        }
+        return wordDAO;
     }
 }

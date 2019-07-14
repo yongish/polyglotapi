@@ -3,7 +3,9 @@ package com.zhiyong.PolyglotAPI;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.zhiyong.PolyglotAPI.health.PolyglotAPIHealthCheck;
+import com.zhiyong.PolyglotAPI.resources.ArticleResource;
 import com.zhiyong.PolyglotAPI.resources.KnowResource;
+import com.zhiyong.PolyglotAPI.resources.WordResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -30,6 +32,8 @@ public class PolyglotAPIApplication extends Application<PolyglotAPIConfiguration
         environment.healthChecks().register("PolyglotAPI", injector.getInstance(PolyglotAPIHealthCheck.class));
 
         environment.jersey().register(injector.getInstance(KnowResource.class));
+        environment.jersey().register(injector.getInstance(ArticleResource.class));
+        environment.jersey().register(injector.getInstance(WordResource.class));
     }
 
 }
