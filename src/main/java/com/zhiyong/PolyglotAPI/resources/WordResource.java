@@ -1,7 +1,7 @@
 package com.zhiyong.PolyglotAPI.resources;
 
 import com.google.inject.Inject;
-import com.zhiyong.PolyglotAPI.api.Article;
+import com.zhiyong.PolyglotAPI.api.Entry;
 import com.zhiyong.PolyglotAPI.db.WordDAO;
 
 import javax.ws.rs.*;
@@ -15,9 +15,16 @@ public class WordResource {
         this.wordDAO = wordDAO;
     }
 
+    @GET
+    @Path("/{language}")
+    public void get(@PathParam("userId") int userId, @PathParam("language") String language) {
+        wordDAO.get(userId, language);
+    }
+
     @PUT
-    public void put(@PathParam("userId") int userId, Article word) {
-        wordDAO.put(userId, word.getTitle(), word.getUrl(), word.getWord(), word.getLanguage(), word.getKnow());
+    public void put(@PathParam("userId") int userId, Entry word) {
+        wordDAO.put(userId, word.getTitle(), word.getUrl(), word.getWord(), word.getPinyin(), word.getLanguage(),
+                word.getKnow());
     }
 
     @DELETE

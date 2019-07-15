@@ -7,17 +7,20 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class Article {
+public class Entry {
     @JsonProperty("title")
     private final String title;
 
-    @NotEmpty
     @JsonProperty("url")
     private final String url;
 
     @NotEmpty
     @JsonProperty("word")
     private final String word;
+
+    @NotEmpty
+    @JsonProperty("pinyin")
+    private final String pinyin;
 
     @NotEmpty
     @JsonProperty("language")
